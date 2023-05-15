@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import SendIcon from "@mui/icons-material/Send";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import Avatar from "@mui/material/Avatar";
@@ -11,14 +12,14 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
+import styles from './Chat.module.css';
 
 const Chat = () => {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [profile, setProfile] = useState("User1");
 
-  const profiles = ["User1", "User2", "User3"]; // список профілів
-
+  const profiles = ["User1", "User2", "User3"];
   const handleChange = (event) => {
     setMessage(event.target.value);
   };
@@ -42,24 +43,24 @@ const Chat = () => {
   };
 
   return (
-    <Card>
-      <CardContent>
-        {messages.map((message) => (
-          <ListItem key={message.id}>
-            <ListItemAvatar>
-              <Avatar src={`/${message.profile}.png`} />
-            </ListItemAvatar>
-            <ListItemText
-              primary={message.text}
-              secondary={message.date.toLocaleString()}
-            />
-          </ListItem>
-        ))}
-        <form onSubmit={handleSubmit}>
-          <Grid container direction="column" justifyContent="flex-end">
-            <Box mb={2}>
-              <Grid item xs={12}>
-                <Select value={profile} onChange={handleSelect}>
+    <Box className={styles.box}>
+      <Card>
+        <CardContent>
+          {messages.map((message) => (
+            <ListItem key={message.id}>
+              <ListItemAvatar>
+                <Avatar src={`/${message.profile}.jpg`} />
+              </ListItemAvatar>
+              <ListItemText
+                primary={message.text}
+                secondary={message.date.toLocaleString()}
+              />
+            </ListItem>
+          ))}
+          <form onSubmit={handleSubmit}>
+            <Grid container direction="row" justifyContent="space-between" alignItems="center">
+              <Grid item xs={3}>
+                <Select value={profile} onChange={handleSelect} fullWidth>
                   {profiles.map((profile) => (
                     <MenuItem key={profile} value={profile}>
                       {profile}
@@ -67,28 +68,25 @@ const Chat = () => {
                   ))}
                 </Select>
               </Grid>
-            </Box>
-            <Box mb={2}>
-              <Grid item xs={12}>
+              <Grid item xs={8}>
                 <TextField
                   label="Message"
                   variant="outlined"
                   value={message}
                   onChange={handleChange}
+                  fullWidth
                 />
               </Grid>
-            </Box>
-            <Box mb={2}>
-              <Grid item xs={12}>
-                <Button variant="contained" color="primary" type="submit">
-                  Надіслати
-                </Button>
+              <Grid item xs={1}>
+                <IconButton color="primary" type="submit">
+                  <SendIcon />
+                </IconButton>
               </Grid>
-            </Box>
-          </Grid>
-        </form>
-      </CardContent>
-    </Card>
+            </Grid>
+          </form>
+        </CardContent>
+      </Card>
+    </Box>
   );
 };
 
