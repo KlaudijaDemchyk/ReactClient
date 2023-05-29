@@ -9,10 +9,11 @@ import ListItem from "@mui/material/ListItem";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ListItemText from "@mui/material/ListItemText";
 import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import styles from './Chat.module.css';
+import CustomCardContent from "./components/CustomCardContent";
+import CustomGrid from "./components/CustomGrid";
 
 const Chat = () => {
   const [message, setMessage] = useState("");
@@ -45,7 +46,7 @@ const Chat = () => {
   return (
     <Box className={styles.box}>
       <Card>
-        <CardContent>
+        <CustomCardContent>
           {messages.map((message) => (
             <ListItem key={message.id}>
               <ListItemAvatar>
@@ -58,7 +59,7 @@ const Chat = () => {
             </ListItem>
           ))}
           <form onSubmit={handleSubmit}>
-            <Grid container direction="row" justifyContent="space-between" alignItems="center">
+            <CustomGrid container direction="row" justifyContent="space-between" alignItems="center">
               <Grid item xs={3}>
                 <Select value={profile} onChange={handleSelect} fullWidth>
                   {profiles.map((profile) => (
@@ -82,9 +83,9 @@ const Chat = () => {
                   <SendIcon />
                 </IconButton>
               </Grid>
-            </Grid>
+            </CustomGrid>
           </form>
-        </CardContent>
+        </CustomCardContent>
       </Card>
     </Box>
   );
